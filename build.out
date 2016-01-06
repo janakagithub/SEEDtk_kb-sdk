@@ -1,0 +1,170 @@
+Check out from https://github.com/SEEDtk
+Clone https://github.com/SEEDtk/utils.git
+Clone https://github.com/SEEDtk/ERDB.git
+Clone https://github.com/SEEDtk/kernel.git
+Clone https://github.com/SEEDtk/RASTtk.git
+Clone https://github.com/SEEDtk/tbltools.git
+Bootstrapping SEEDtk
+Setting runtime to /kb/runtime
+Performing initial build
+if [ ! -d bin ] ; then mkdir bin ; fi
+for m in modules/ERDB modules/kernel modules/RASTtk modules/tbltools modules/utils; do \
+		if [ -d $m ] ; then \
+			echo "Build $m" ; \
+			(cd $m; make ) ; \
+			if [ $? -ne 0 ] ; then \
+				exit 1 ; \
+			fi \
+		fi \
+	done
+Build modules/ERDB
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/ERDB/scripts/BuildRepo.pl' ../../bin/BuildRepo
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/ERDB/scripts/CopyFromSeed.pl' ../../bin/CopyFromSeed
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/ERDB/scripts/ShrubIndexGenomes.pl' ../../bin/ShrubIndexGenomes
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/ERDB/scripts/ShrubLoad.pl' ../../bin/ShrubLoad
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/ERDB/scripts/ShrubLoadFormat.pl' ../../bin/ShrubLoadFormat
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/ERDB/scripts/ShrubLoadTables.pl' ../../bin/ShrubLoadTables
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/ERDB/scripts/ShrubProto.pl' ../../bin/ShrubProto
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/ERDB/scripts/ShrubTune.pl' ../../bin/ShrubTune
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/ERDB/scripts/TestShrub.pl' ../../bin/TestShrub
+Build modules/kernel
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/Proto.pl' ../../bin/Proto
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/ShowEcRoles.pl' ../../bin/ShowEcRoles
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/TestMaple.pl' ../../bin/TestMaple
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/all_clusters.pl' ../../bin/all_clusters
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/analyze_contig_to_uni.pl' ../../bin/analyze_contig_to_uni
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/analyze_test_bins.pl' ../../bin/analyze_test_bins
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/big_repeats.pl' ../../bin/big_repeats
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bin_table.pl' ../../bin/bin_table
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bins_audit.pl' ../../bin/bins_audit
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bins_compare.pl' ../../bin/bins_compare
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bins_compute.pl' ../../bin/bins_compute
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bins_coverage.pl' ../../bin/bins_coverage
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bins_create.pl' ../../bin/bins_create
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bins_decide.pl' ../../bin/bins_decide
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bins_detail.pl' ../../bin/bins_detail
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bins_eval.pl' ../../bin/bins_eval
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bins_init.pl' ../../bin/bins_init
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bins_report.pl' ../../bin/bins_report
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bins_score.pl' ../../bin/bins_score
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/bins_synthetic_check.pl' ../../bin/bins_synthetic_check
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/blast_fids.pl' ../../bin/blast_fids
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/build_ff_from_reliable_ss3.pl' ../../bin/build_ff_from_reliable_ss3
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/build_rps_database.pl' ../../bin/build_rps_database
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/cdd_test.pl' ../../bin/cdd_test
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/check_fasta.pl' ../../bin/check_fasta
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/clusters.pl' ../../bin/clusters
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/community_analysis.pl' ../../bin/community_analysis
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/community_missing.pl' ../../bin/community_missing
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/community_pipeline.pl' ../../bin/community_pipeline
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/compute_close_data.pl' ../../bin/compute_close_data
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/construct_reference_genomes.pl' ../../bin/construct_reference_genomes
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/embedded_set.pl' ../../bin/embedded_set
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/eval.pl' ../../bin/eval
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/filter_proposed_changes.pl' ../../bin/filter_proposed_changes
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/find_bad_variants.pl' ../../bin/find_bad_variants
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/ga.pl' ../../bin/ga
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/generate_sample.pl' ../../bin/generate_sample
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/genome_fasta.pl' ../../bin/genome_fasta
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/get_all.pl' ../../bin/get_all
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/get_closest_representative_genomes.pl' ../../bin/get_closest_representative_genomes
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/get_univ_singletons.pl' ../../bin/get_univ_singletons
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/initial_estimate.pl' ../../bin/initial_estimate
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/make_trip_data.pl' ../../bin/make_trip_data
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/project_solid_roles.pl' ../../bin/project_solid_roles
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/properties_of_solid_roles.pl' ../../bin/properties_of_solid_roles
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/solid_projection_engine.pl' ../../bin/solid_projection_engine
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/solid_projection_pipeline.pl' ../../bin/solid_projection_pipeline
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/summarize_bins.pl' ../../bin/summarize_bins
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/syn_mg_samples_pipeline.pl' ../../bin/syn_mg_samples_pipeline
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/kernel/scripts/tabulate_bin_estmates.pl' ../../bin/tabulate_bin_estmates
+bash ../../tools/wrap_sh.sh '$KB_TOP/modules/kernel/scripts/all_genomes.sh' ../../bin/all_genomes
+bash ../../tools/wrap_sh.sh '$KB_TOP/modules/kernel/scripts/all_roles.sh' ../../bin/all_roles
+bash ../../tools/wrap_sh.sh '$KB_TOP/modules/kernel/scripts/all_subsystems.sh' ../../bin/all_subsystems
+bash ../../tools/wrap_sh.sh '$KB_TOP/modules/kernel/scripts/genome_to_subsystems.sh' ../../bin/genome_to_subsystems
+bash ../../tools/wrap_sh.sh '$KB_TOP/modules/kernel/scripts/subsystem_row.sh' ../../bin/subsystem_row
+Build modules/RASTtk
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/RASTtk/scripts/alignment_to_html.pl' ../../bin/alignment_to_html
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/RASTtk/scripts/fast_project.pl' ../../bin/fast_project
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/RASTtk/scripts/fetch_seed_gto.pl' ../../bin/fetch_seed_gto
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/RASTtk/scripts/find_close_genomes.pl' ../../bin/find_close_genomes
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/RASTtk/scripts/rel2tabs.pl' ../../bin/rel2tabs
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/RASTtk/scripts/sketch_tree.pl' ../../bin/sketch_tree
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/RASTtk/scripts/svc_fasta_to_md5.pl' ../../bin/svc_fasta_to_md5
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/RASTtk/scripts/tabs2rel.pl' ../../bin/tabs2rel
+Build modules/tbltools
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/domain_of.pl' ../../bin/domain_of
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/filter_roles.pl' ../../bin/filter_roles
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/function_of.pl' ../../bin/function_of
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/peg_of.pl' ../../bin/peg_of
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/role2desc.pl' ../../bin/role2desc
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/role_to_pegs.pl' ../../bin/role_to_pegs
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/role_to_ss.pl' ../../bin/role_to_ss
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/run_CDD.pl' ../../bin/run_CDD
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/ss2roles.pl' ../../bin/ss2roles
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/ss_of_row.pl' ../../bin/ss_of_row
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_all_features.pl' ../../bin/svc_all_features
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_all_genomes.pl' ../../bin/svc_all_genomes
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_blast.pl' ../../bin/svc_blast
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_contigs.pl' ../../bin/svc_contigs
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_count_occ.pl' ../../bin/svc_count_occ
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_desc_to_role.pl' ../../bin/svc_desc_to_role
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_echo.pl' ../../bin/svc_echo
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_fasta.pl' ../../bin/svc_fasta
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_fid_locations.pl' ../../bin/svc_fid_locations
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_fids_for_md5.pl' ../../bin/svc_fids_for_md5
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_function_of.pl' ../../bin/svc_function_of
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_functions_to_roles.pl' ../../bin/svc_functions_to_roles
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_genome_fasta.pl' ../../bin/svc_genome_fasta
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_genome_of.pl' ../../bin/svc_genome_of
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_genome_statistics.pl' ../../bin/svc_genome_statistics
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_gto_to_contigs.pl' ../../bin/svc_gto_to_contigs
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_gto_to_features.pl' ../../bin/svc_gto_to_features
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_is_CS.pl' ../../bin/svc_is_CS
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_kmer_db.pl' ../../bin/svc_kmer_db
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_kmer_hits.pl' ../../bin/svc_kmer_hits
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_matching.pl' ../../bin/svc_matching
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_missing_roles.pl' ../../bin/svc_missing_roles
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_proto.pl' ../../bin/svc_proto
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_rast.pl' ../../bin/svc_rast
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_role_ss_filter.pl' ../../bin/svc_role_ss_filter
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_role_to_desc.pl' ../../bin/svc_role_to_desc
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_role_to_features.pl' ../../bin/svc_role_to_features
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_role_to_ss.pl' ../../bin/svc_role_to_ss
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_roles_in_genomes.pl' ../../bin/svc_roles_in_genomes
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_ss_to_roles.pl' ../../bin/svc_ss_to_roles
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svc_translation.pl' ../../bin/svc_translation
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svr_is_CS.pl' ../../bin/svr_is_CS
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svr_is_hypo.pl' ../../bin/svr_is_hypo
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/svr_proto.pl' ../../bin/svr_proto
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/tbl_fasta.pl' ../../bin/tbl_fasta
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/tbltools/scripts/trans_of.pl' ../../bin/trans_of
+Build modules/utils
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/utils/scripts/ApacheFix.pl' ../../bin/ApacheFix
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/utils/scripts/CheckUpdates.pl' ../../bin/CheckUpdates
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/utils/scripts/Config.pl' ../../bin/Config
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/utils/scripts/ConvertToPod.pl' ../../bin/ConvertToPod
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/utils/scripts/InstallTool.pl' ../../bin/InstallTool
+bash ../../tools/wrap_perl.sh '$KB_TOP/modules/utils/scripts/MiniSeed.pl' ../../bin/MiniSeed
+Complete. 
+
+Run the following command to set up your environment:
+
+source user-env.sh
+
+To perform the default directory setup run the following commands
+
+mkdir Data
+Config --dirs Data
+Retrieving current configuration.
+Analyzing directories.
+Writing configuration to /Users/dolson/kb_sdk/SEEDtk/SEEDtk/config/FIG_Config.pm.
+Reading back new configuration.
+Data directory /Users/dolson/kb_sdk/SEEDtk/SEEDtk/Data/Inputs created.
+Data directory /Users/dolson/kb_sdk/SEEDtk/SEEDtk/Data/Inputs/GenomeData created.
+Data directory /Users/dolson/kb_sdk/SEEDtk/SEEDtk/Data/Inputs/SubSystemData created.
+Data directory /Users/dolson/kb_sdk/SEEDtk/SEEDtk/Data/LoadFiles created.
+Data directory /Users/dolson/kb_sdk/SEEDtk/SEEDtk/Data/DnaRepo created.
+Creating /Users/dolson/kb_sdk/SEEDtk/SEEDtk/Data/Global.
+Pull-all script written to /Users/dolson/kb_sdk/SEEDtk/SEEDtk/bin/pull-all.
+All done.
