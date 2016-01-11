@@ -1,5 +1,8 @@
 #!/bin/bash
-if [! -d "SEEDtk" ]; then
+if [ -d "SEEDtk" ]; then
+    source SEEDtk/user-env.sh
+    pull-all
+else
     git clone https://github.com/SEEDtk/seedtk.git SEEDtk
     cd SEEDtk
     ./seedtk-setup
