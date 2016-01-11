@@ -1,6 +1,6 @@
 /*
 A KBase module: SEEDtk
-This sample module contains one small method - filter_contigs.
+This module contains various methods for accessing SEEDtk.
 */
 
 module SEEDtk {
@@ -14,27 +14,28 @@ module SEEDtk {
     */
     typedef string workspace_name;
 
+
+    /* description of a role missing in the contigs */
+
+	typedef structure {
+        string role_id;
+        string role_description;
+        int genome_hits;
+        float blast_score;
+        float perc_identity;
+        string hit_location;
+    } MissingRoleItem;
+
     typedef structure {
-        workspace_name workspace;
+        list<MissingRoleItem> roles;
         contigset_id contigset_id;
-        int min_length;
-    } FilterContigsParams;
+    } MissingRoleData;
 
-    /* 
-        The workspace ID for a ContigSet data object.
-        @id ws KBaseGenomes.ContigSet
-    */
-    typedef string ws_contigset_id;
+    typedef string genome_id;
+    typedef string genome_name;
 
-    typedef structure {
-        ws_contigset_id new_contigset_ref;
-        int n_initial_contigs;
-        int n_contigs_removed;
-        int n_contigs_remaining;
-    } FilterContigsResults;
-	
     /*
-        Filter contigs in a ContigSet by DNA length
+        find missing roles in a set of contigs
     */
-    funcdef filter_contigs(FilterContigsParams params) returns (FilterContigsResults) authentication required;
+    funcdef missing_roles(workspace_name, contigset_id, genome_id, genome_name) returns (MissingRoleData) authentication required;
 };

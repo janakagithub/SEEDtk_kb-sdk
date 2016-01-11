@@ -27,7 +27,7 @@ SEEDtk::SEEDtkClient
 
 
 A KBase module: SEEDtk
-This sample module contains one small method - filter_contigs.
+This module contains various methods for accessing SEEDtk.
 
 
 =cut
@@ -110,9 +110,9 @@ sub new
 
 
 
-=head2 filter_contigs
+=head2 missing_roles
 
-  $return = $obj->filter_contigs($params)
+  $return = $obj->missing_roles($workspace_name, $contigset_id, $genome_id, $genome_name)
 
 =over 4
 
@@ -121,20 +121,25 @@ sub new
 =begin html
 
 <pre>
-$params is a SEEDtk.FilterContigsParams
-$return is a SEEDtk.FilterContigsResults
-FilterContigsParams is a reference to a hash where the following keys are defined:
-	workspace has a value which is a SEEDtk.workspace_name
-	contigset_id has a value which is a SEEDtk.contigset_id
-	min_length has a value which is an int
+$workspace_name is a SEEDtk.workspace_name
+$contigset_id is a SEEDtk.contigset_id
+$genome_id is a SEEDtk.genome_id
+$genome_name is a SEEDtk.genome_name
+$return is a SEEDtk.MissingRoleData
 workspace_name is a string
 contigset_id is a string
-FilterContigsResults is a reference to a hash where the following keys are defined:
-	new_contigset_ref has a value which is a SEEDtk.ws_contigset_id
-	n_initial_contigs has a value which is an int
-	n_contigs_removed has a value which is an int
-	n_contigs_remaining has a value which is an int
-ws_contigset_id is a string
+genome_id is a string
+genome_name is a string
+MissingRoleData is a reference to a hash where the following keys are defined:
+	roles has a value which is a reference to a list where each element is a SEEDtk.MissingRoleItem
+	contigset_id has a value which is a SEEDtk.contigset_id
+MissingRoleItem is a reference to a hash where the following keys are defined:
+	role_id has a value which is a string
+	role_description has a value which is a string
+	genome_hits has a value which is an int
+	blast_score has a value which is a float
+	perc_identity has a value which is a float
+	hit_location has a value which is a string
 
 </pre>
 
@@ -142,73 +147,81 @@ ws_contigset_id is a string
 
 =begin text
 
-$params is a SEEDtk.FilterContigsParams
-$return is a SEEDtk.FilterContigsResults
-FilterContigsParams is a reference to a hash where the following keys are defined:
-	workspace has a value which is a SEEDtk.workspace_name
-	contigset_id has a value which is a SEEDtk.contigset_id
-	min_length has a value which is an int
+$workspace_name is a SEEDtk.workspace_name
+$contigset_id is a SEEDtk.contigset_id
+$genome_id is a SEEDtk.genome_id
+$genome_name is a SEEDtk.genome_name
+$return is a SEEDtk.MissingRoleData
 workspace_name is a string
 contigset_id is a string
-FilterContigsResults is a reference to a hash where the following keys are defined:
-	new_contigset_ref has a value which is a SEEDtk.ws_contigset_id
-	n_initial_contigs has a value which is an int
-	n_contigs_removed has a value which is an int
-	n_contigs_remaining has a value which is an int
-ws_contigset_id is a string
+genome_id is a string
+genome_name is a string
+MissingRoleData is a reference to a hash where the following keys are defined:
+	roles has a value which is a reference to a list where each element is a SEEDtk.MissingRoleItem
+	contigset_id has a value which is a SEEDtk.contigset_id
+MissingRoleItem is a reference to a hash where the following keys are defined:
+	role_id has a value which is a string
+	role_description has a value which is a string
+	genome_hits has a value which is an int
+	blast_score has a value which is a float
+	perc_identity has a value which is a float
+	hit_location has a value which is a string
 
 
 =end text
 
 =item Description
 
-Filter contigs in a ContigSet by DNA length
+find missing roles in a set of contigs
 
 =back
 
 =cut
 
- sub filter_contigs
+ sub missing_roles
 {
     my($self, @args) = @_;
 
 # Authentication: required
 
-    if ((my $n = @args) != 1)
+    if ((my $n = @args) != 4)
     {
 	Bio::KBase::Exceptions::ArgumentValidationError->throw(error =>
-							       "Invalid argument count for function filter_contigs (received $n, expecting 1)");
+							       "Invalid argument count for function missing_roles (received $n, expecting 4)");
     }
     {
-	my($params) = @args;
+	my($workspace_name, $contigset_id, $genome_id, $genome_name) = @args;
 
 	my @_bad_arguments;
-        (ref($params) eq 'HASH') or push(@_bad_arguments, "Invalid type for argument 1 \"params\" (value was \"$params\")");
+        (!ref($workspace_name)) or push(@_bad_arguments, "Invalid type for argument 1 \"workspace_name\" (value was \"$workspace_name\")");
+        (!ref($contigset_id)) or push(@_bad_arguments, "Invalid type for argument 2 \"contigset_id\" (value was \"$contigset_id\")");
+        (!ref($genome_id)) or push(@_bad_arguments, "Invalid type for argument 3 \"genome_id\" (value was \"$genome_id\")");
+        (!ref($genome_name)) or push(@_bad_arguments, "Invalid type for argument 4 \"genome_name\" (value was \"$genome_name\")");
         if (@_bad_arguments) {
-	    my $msg = "Invalid arguments passed to filter_contigs:\n" . join("", map { "\t$_\n" } @_bad_arguments);
+	    my $msg = "Invalid arguments passed to missing_roles:\n" . join("", map { "\t$_\n" } @_bad_arguments);
 	    Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
-								   method_name => 'filter_contigs');
+								   method_name => 'missing_roles');
 	}
     }
 
     my $result = $self->{client}->call($self->{url}, $self->{headers}, {
-	method => "SEEDtk.filter_contigs",
+	method => "SEEDtk.missing_roles",
 	params => \@args,
     });
     if ($result) {
 	if ($result->is_error) {
 	    Bio::KBase::Exceptions::JSONRPC->throw(error => $result->error_message,
 					       code => $result->content->{error}->{code},
-					       method_name => 'filter_contigs',
+					       method_name => 'missing_roles',
 					       data => $result->content->{error}->{error} # JSON::RPC::ReturnObject only supports JSONRPC 1.1 or 1.O
 					      );
 	} else {
 	    return wantarray ? @{$result->result} : $result->result->[0];
 	}
     } else {
-        Bio::KBase::Exceptions::HTTP->throw(error => "Error invoking method filter_contigs",
+        Bio::KBase::Exceptions::HTTP->throw(error => "Error invoking method missing_roles",
 					    status_line => $self->{client}->status_line,
-					    method_name => 'filter_contigs',
+					    method_name => 'missing_roles',
 				       );
     }
 }
@@ -226,16 +239,16 @@ sub version {
             Bio::KBase::Exceptions::JSONRPC->throw(
                 error => $result->error_message,
                 code => $result->content->{code},
-                method_name => 'filter_contigs',
+                method_name => 'missing_roles',
             );
         } else {
             return wantarray ? @{$result->result} : $result->result->[0];
         }
     } else {
         Bio::KBase::Exceptions::HTTP->throw(
-            error => "Error invoking method filter_contigs",
+            error => "Error invoking method missing_roles",
             status_line => $self->{client}->status_line,
-            method_name => 'filter_contigs',
+            method_name => 'missing_roles',
         );
     }
 }
@@ -334,41 +347,7 @@ a string
 
 
 
-=head2 FilterContigsParams
-
-=over 4
-
-
-
-=item Definition
-
-=begin html
-
-<pre>
-a reference to a hash where the following keys are defined:
-workspace has a value which is a SEEDtk.workspace_name
-contigset_id has a value which is a SEEDtk.contigset_id
-min_length has a value which is an int
-
-</pre>
-
-=end html
-
-=begin text
-
-a reference to a hash where the following keys are defined:
-workspace has a value which is a SEEDtk.workspace_name
-contigset_id has a value which is a SEEDtk.contigset_id
-min_length has a value which is an int
-
-
-=end text
-
-=back
-
-
-
-=head2 ws_contigset_id
+=head2 MissingRoleItem
 
 =over 4
 
@@ -376,8 +355,79 @@ min_length has a value which is an int
 
 =item Description
 
-The workspace ID for a ContigSet data object.
-@id ws KBaseGenomes.ContigSet
+description of a role missing in the contigs
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a reference to a hash where the following keys are defined:
+role_id has a value which is a string
+role_description has a value which is a string
+genome_hits has a value which is an int
+blast_score has a value which is a float
+perc_identity has a value which is a float
+hit_location has a value which is a string
+
+</pre>
+
+=end html
+
+=begin text
+
+a reference to a hash where the following keys are defined:
+role_id has a value which is a string
+role_description has a value which is a string
+genome_hits has a value which is an int
+blast_score has a value which is a float
+perc_identity has a value which is a float
+hit_location has a value which is a string
+
+
+=end text
+
+=back
+
+
+
+=head2 MissingRoleData
+
+=over 4
+
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a reference to a hash where the following keys are defined:
+roles has a value which is a reference to a list where each element is a SEEDtk.MissingRoleItem
+contigset_id has a value which is a SEEDtk.contigset_id
+
+</pre>
+
+=end html
+
+=begin text
+
+a reference to a hash where the following keys are defined:
+roles has a value which is a reference to a list where each element is a SEEDtk.MissingRoleItem
+contigset_id has a value which is a SEEDtk.contigset_id
+
+
+=end text
+
+=back
+
+
+
+=head2 genome_id
+
+=over 4
+
 
 
 =item Definition
@@ -400,7 +450,7 @@ a string
 
 
 
-=head2 FilterContigsResults
+=head2 genome_name
 
 =over 4
 
@@ -411,24 +461,14 @@ a string
 =begin html
 
 <pre>
-a reference to a hash where the following keys are defined:
-new_contigset_ref has a value which is a SEEDtk.ws_contigset_id
-n_initial_contigs has a value which is an int
-n_contigs_removed has a value which is an int
-n_contigs_remaining has a value which is an int
-
+a string
 </pre>
 
 =end html
 
 =begin text
 
-a reference to a hash where the following keys are defined:
-new_contigset_ref has a value which is a SEEDtk.ws_contigset_id
-n_initial_contigs has a value which is an int
-n_contigs_removed has a value which is an int
-n_contigs_remaining has a value which is an int
-
+a string
 
 =end text
 

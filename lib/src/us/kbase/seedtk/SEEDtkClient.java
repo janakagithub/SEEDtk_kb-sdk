@@ -16,7 +16,7 @@ import us.kbase.common.service.UnauthorizedException;
  * <p>Original spec-file module name: SEEDtk</p>
  * <pre>
  * A KBase module: SEEDtk
- * This sample module contains one small method - filter_contigs.
+ * This module contains various methods for accessing SEEDtk.
  * </pre>
  */
 public class SEEDtkClient {
@@ -140,20 +140,26 @@ public class SEEDtkClient {
     }
 
     /**
-     * <p>Original spec-file function name: filter_contigs</p>
+     * <p>Original spec-file function name: missing_roles</p>
      * <pre>
-     * Filter contigs in a ContigSet by DNA length
+     * find missing roles in a set of contigs
      * </pre>
-     * @param   params   instance of type {@link us.kbase.seedtk.FilterContigsParams FilterContigsParams}
-     * @return   instance of type {@link us.kbase.seedtk.FilterContigsResults FilterContigsResults}
+     * @param   arg1   instance of original type "workspace_name" (A string representing a workspace name.)
+     * @param   arg2   instance of original type "contigset_id" (A string representing a ContigSet id.)
+     * @param   arg3   instance of original type "genome_id"
+     * @param   arg4   instance of original type "genome_name"
+     * @return   instance of type {@link us.kbase.seedtk.MissingRoleData MissingRoleData}
      * @throws IOException if an IO exception occurs
      * @throws JsonClientException if a JSON RPC exception occurs
      */
-    public FilterContigsResults filterContigs(FilterContigsParams params, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
+    public MissingRoleData missingRoles(String arg1, String arg2, String arg3, String arg4, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
         List<Object> args = new ArrayList<Object>();
-        args.add(params);
-        TypeReference<List<FilterContigsResults>> retType = new TypeReference<List<FilterContigsResults>>() {};
-        List<FilterContigsResults> res = caller.jsonrpcCall("SEEDtk.filter_contigs", args, retType, true, true, jsonRpcContext);
+        args.add(arg1);
+        args.add(arg2);
+        args.add(arg3);
+        args.add(arg4);
+        TypeReference<List<MissingRoleData>> retType = new TypeReference<List<MissingRoleData>>() {};
+        List<MissingRoleData> res = caller.jsonrpcCall("SEEDtk.missing_roles", args, retType, true, true, jsonRpcContext);
         return res.get(0);
     }
 }

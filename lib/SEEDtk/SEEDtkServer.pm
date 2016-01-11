@@ -28,37 +28,37 @@ has 'local_headers' => (is => 'ro', isa => 'HashRef');
 our $CallContext;
 
 our %return_counts = (
-        'filter_contigs' => 1,
-        'filter_contigs_async' => 1,
-        'filter_contigs_check' => 1,
+        'missing_roles' => 1,
+        'missing_roles_async' => 1,
+        'missing_roles_check' => 1,
         'version' => 1,
 );
 
 our %method_authentication = (
-        'filter_contigs' => 'required',
-        'filter_contigs_async' => 'required',
-        'filter_contigs_check' => 'required',
+        'missing_roles' => 'required',
+        'missing_roles_async' => 'required',
+        'missing_roles_check' => 'required',
 );
 
 our %sync_methods = (
-        'filter_contigs' => 1,
+        'missing_roles' => 1,
 );
 
 our %async_run_methods = (
-        'filter_contigs_async' => 'SEEDtk.filter_contigs',
+        'missing_roles_async' => 'SEEDtk.missing_roles',
 );
 
 our %async_check_methods = (
-        'filter_contigs_check' => 'SEEDtk.filter_contigs',
+        'missing_roles_check' => 'SEEDtk.missing_roles',
 );
 
 sub _build_valid_methods
 {
     my($self) = @_;
     my $methods = {
-        'filter_contigs' => 1,
-        'filter_contigs_async' => 1,
-        'filter_contigs_check' => 1,
+        'missing_roles' => 1,
+        'missing_roles_async' => 1,
+        'missing_roles_check' => 1,
         'version' => 1,
     };
     return $methods;
