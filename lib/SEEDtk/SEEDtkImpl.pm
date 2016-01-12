@@ -140,11 +140,11 @@ sub missing_roles
     my $ctx = $SEEDtk::SEEDtkServer::CallContext;
     my($return);
     #BEGIN missing_roles
+    print "beginning\n";
     my $token=$ctx->token;
     my $wshandle=Bio::KBase::workspace::Client->new($self->{'workspace-url'},token=>$token);
     my $fm=$wshandle->get_objects([{workspace=>$workspace_name,name=>$contigset_id}]);
-    print Dumper($fm);
-    die "you maggot-sucking pig";
+    print $workspace_name, " - ", $contigset_id, "\n";
     #END missing_roles
     my @_bad_returns;
     (ref($return) eq 'HASH') or push(@_bad_returns, "Invalid type for return variable \"return\" (value was \"$return\")");
