@@ -42,7 +42,7 @@ sub new
 
     if ($self->can('_init_instance'))
     {
-	$self->_init_instance();
+        $self->_init_instance();
     }
     return $self;
 }
@@ -72,15 +72,15 @@ contigset_id is a string
 genome_id is a string
 genome_name is a string
 MissingRoleData is a reference to a hash where the following keys are defined:
-	roles has a value which is a reference to a list where each element is a SEEDtk.MissingRoleItem
-	contigset_id has a value which is a SEEDtk.contigset_id
+        roles has a value which is a reference to a list where each element is a SEEDtk.MissingRoleItem
+        contigset_id has a value which is a SEEDtk.contigset_id
 MissingRoleItem is a reference to a hash where the following keys are defined:
-	role_id has a value which is a string
-	role_description has a value which is a string
-	genome_hits has a value which is an int
-	blast_score has a value which is a float
-	perc_identity has a value which is a float
-	hit_location has a value which is a string
+        role_id has a value which is a string
+        role_description has a value which is a string
+        genome_hits has a value which is an int
+        blast_score has a value which is a float
+        perc_identity has a value which is a float
+        hit_location has a value which is a string
 
 </pre>
 
@@ -98,15 +98,15 @@ contigset_id is a string
 genome_id is a string
 genome_name is a string
 MissingRoleData is a reference to a hash where the following keys are defined:
-	roles has a value which is a reference to a list where each element is a SEEDtk.MissingRoleItem
-	contigset_id has a value which is a SEEDtk.contigset_id
+        roles has a value which is a reference to a list where each element is a SEEDtk.MissingRoleItem
+        contigset_id has a value which is a SEEDtk.contigset_id
 MissingRoleItem is a reference to a hash where the following keys are defined:
-	role_id has a value which is a string
-	role_description has a value which is a string
-	genome_hits has a value which is an int
-	blast_score has a value which is a float
-	perc_identity has a value which is a float
-	hit_location has a value which is a string
+        role_id has a value which is a string
+        role_description has a value which is a string
+        genome_hits has a value which is an int
+        blast_score has a value which is a float
+        perc_identity has a value which is a float
+        hit_location has a value which is a string
 
 
 =end text
@@ -132,9 +132,9 @@ sub missing_roles
     (!ref($genome_id)) or push(@_bad_arguments, "Invalid type for argument \"genome_id\" (value was \"$genome_id\")");
     (!ref($genome_name)) or push(@_bad_arguments, "Invalid type for argument \"genome_name\" (value was \"$genome_name\")");
     if (@_bad_arguments) {
-	my $msg = "Invalid arguments passed to missing_roles:\n" . join("", map { "\t$_\n" } @_bad_arguments);
-	Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
-							       method_name => 'missing_roles');
+        my $msg = "Invalid arguments passed to missing_roles:\n" . join("", map { "\t$_\n" } @_bad_arguments);
+        Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
+                                                               method_name => 'missing_roles');
     }
 
     my $ctx = $SEEDtk::SEEDtkServer::CallContext;
@@ -143,15 +143,15 @@ sub missing_roles
     my $token=$ctx->token;
     my $wshandle=Bio::KBase::workspace::Client->new($self->{'workspace-url'},token=>$token);
     my $fm=$wshandle->get_objects([{workspace=>$workspace_name,name=>$contigset_id}]);
-    print Data::Dumper($fm);
+    print Dumper($fm);
     die "you maggot-sucking pig";
     #END missing_roles
     my @_bad_returns;
     (ref($return) eq 'HASH') or push(@_bad_returns, "Invalid type for return variable \"return\" (value was \"$return\")");
     if (@_bad_returns) {
-	my $msg = "Invalid returns passed to missing_roles:\n" . join("", map { "\t$_\n" } @_bad_returns);
-	Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
-							       method_name => 'missing_roles');
+        my $msg = "Invalid returns passed to missing_roles:\n" . join("", map { "\t$_\n" } @_bad_returns);
+        Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
+                                                               method_name => 'missing_roles');
     }
     return($return);
 }
