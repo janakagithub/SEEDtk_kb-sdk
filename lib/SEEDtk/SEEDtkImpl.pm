@@ -151,12 +151,8 @@ sub missing_roles
     }
     print "getting path info.\n";
     for my $key (sort keys %ENV) {
-        if ($key =~ /^KB/) {
-            print "$key = $ENV{$key}\n";
-        }
+        print "$key = $ENV{$key}\n";
     }
-    print $ENV{PATH} . "\n";
-    print $ENV{PERL5LIB} . "\n";
 #    require Shrub;
 #    my $shrub = Shrub->new();
 #    my @genomes = $shrub->GetFlat('Genome', '', [], 'name');
