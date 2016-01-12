@@ -149,7 +149,12 @@ sub missing_roles
         print "---------------\n";
         print join(", ", sort keys %$fmItem), "\n";
     }
-    system('svc_all_genomes');
+    print "getting genomes.\n";
+    print $ENV{PATH} . "\n";
+    require Shrub;
+    my $shrub = Shrub->new();
+    my @genomes = $shrub->GetFlat('Genome', '', [], 'name');
+    print join("\n", @genomes, "");
     $return = { contigset_id => $contigset_id, roles => [] };
     #END missing_roles
     my @_bad_returns;
