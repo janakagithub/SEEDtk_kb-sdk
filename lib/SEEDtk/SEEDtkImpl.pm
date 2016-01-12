@@ -153,6 +153,7 @@ sub missing_roles
     for my $key (sort keys %ENV) {
         print "$key = $ENV{$key}\n";
     }
+    print "FILE = " . __FILE__ . "\n";
 #    require Shrub;
 #    my $shrub = Shrub->new();
 #    my @genomes = $shrub->GetFlat('Genome', '', [], 'name');
