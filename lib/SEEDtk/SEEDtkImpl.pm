@@ -149,7 +149,7 @@ sub missing_roles
         print "---------------\n";
         print join(", ", sort keys %$fmItem), "\n";
     }
-
+    system('svc_all_genomes');
     $return = { contigset_id => $contigset_id, roles => [] };
     #END missing_roles
     my @_bad_returns;
