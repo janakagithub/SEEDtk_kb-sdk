@@ -149,12 +149,18 @@ sub missing_roles
         print "---------------\n";
         print join(", ", sort keys %$fmItem), "\n";
     }
-    print "getting genomes.\n";
+    print "getting path info.\n";
+    for my $key (sort keys %ENV) {
+        if ($key =~ /^KB/) {
+            print "$key = $ENV{$key}\n";
+        }
+    }
     print $ENV{PATH} . "\n";
-    require Shrub;
-    my $shrub = Shrub->new();
-    my @genomes = $shrub->GetFlat('Genome', '', [], 'name');
-    print join("\n", @genomes, "");
+    print $ENV{PERL5LIB} . "\n";
+#    require Shrub;
+#    my $shrub = Shrub->new();
+#    my @genomes = $shrub->GetFlat('Genome', '', [], 'name');
+#    print join("\n", @genomes, "");
     $return = { contigset_id => $contigset_id, roles => [] };
     #END missing_roles
     my @_bad_returns;
