@@ -144,7 +144,8 @@ sub missing_roles
     my $token=$ctx->token;
     my $wshandle=Bio::KBase::workspace::Client->new($self->{'workspace-url'},token=>$token);
     my $fm=$wshandle->get_objects([{workspace=>$workspace_name,name=>$contigset_id}]);
-    print $workspace_name, " - ", $contigset_id, "\n";
+    print join("\n", sort keys %$fm, "");
+    $return = { contigset_id => $contigset_id, roles => [] };
     #END missing_roles
     my @_bad_returns;
     (ref($return) eq 'HASH') or push(@_bad_returns, "Invalid type for return variable \"return\" (value was \"$return\")");
