@@ -21,6 +21,7 @@ use Bio::KBase::AuthToken;
 use Bio::KBase::workspace::Client;
 use Config::IniFiles;
 use Data::Dumper;
+no warnings qw(once);
 #END_HEADER
 
 sub new
@@ -144,7 +145,11 @@ sub missing_roles
     my $token=$ctx->token;
     my $wshandle=Bio::KBase::workspace::Client->new($self->{'workspace-url'},token=>$token);
     my $fm=$wshandle->get_objects([{workspace=>$workspace_name,name=>$contigset_id}]);
-    print join("\n", sort keys %$fm, "");
+    for my $fmItem (@$fm) {
+        print "---------------\n";
+        print join(", ", sort keys %$fmItem), "\n";
+    }
+
     $return = { contigset_id => $contigset_id, roles => [] };
     #END missing_roles
     my @_bad_returns;
