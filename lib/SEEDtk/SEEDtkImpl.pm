@@ -142,24 +142,13 @@ sub missing_roles
     my $ctx = $SEEDtk::SEEDtkServer::CallContext;
     my($return);
     #BEGIN missing_roles
-    print "beginning\n";
     my $token=$ctx->token;
     my $wshandle=Bio::KBase::workspace::Client->new($self->{'workspace-url'},token=>$token);
     my $fm=$wshandle->get_objects([{workspace=>$workspace_name,name=>$contigset_id}]);
-    for my $fmItem (@$fm) {
-        print "---------------\n";
-        print join(", ", sort keys %$fmItem), "\n";
-    }
-    print "getting path info.\n";
-    for my $key (sort keys %ENV) {
-        print "$key = $ENV{$key}\n";
-    }
-    print "Include libs.\n";
-    print join(", ", @INC) . "\n";
-#    require Shrub;
-#    my $shrub = Shrub->new();
-#    my @genomes = $shrub->GetFlat('Genome', '', [], 'name');
-#    print join("\n", @genomes, "");
+    require Shrub;
+    my $shrub = Shrub->new();
+    my @genomes = $shrub->GetFlat('Genome', '', [], 'name');
+    print join("\n", @genomes, "");
     $return = { contigset_id => $contigset_id, roles => [] };
     #END missing_roles
     my @_bad_returns;
