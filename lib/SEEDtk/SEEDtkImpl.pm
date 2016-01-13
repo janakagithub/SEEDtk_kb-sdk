@@ -23,6 +23,7 @@ use Config::IniFiles;
 use Data::Dumper;
 use FIG_Config;
 use STKServices;
+use MissingRoles;
 no warnings qw(once);
 #END_HEADER
 
