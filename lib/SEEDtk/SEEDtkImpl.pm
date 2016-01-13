@@ -22,6 +22,7 @@ use Bio::KBase::workspace::Client;
 use Config::IniFiles;
 use Data::Dumper;
 use FIG_Config;
+use STKServices;
 no warnings qw(once);
 #END_HEADER
 
@@ -145,11 +146,20 @@ sub missing_roles
     my $token=$ctx->token;
     my $wshandle=Bio::KBase::workspace::Client->new($self->{'workspace-url'},token=>$token);
     my $fm=$wshandle->get_objects([{workspace=>$workspace_name,name=>$contigset_id}]);
-    require Shrub;
-    my $shrub = Shrub->new();
-    my @genomes = $shrub->GetFlat('Genome', '', [], 'name');
-    print join("\n", @genomes, "");
-    $return = { contigset_id => $contigset_id, roles => [] };
+    my $helper = STKServices->new();
+    $helper->connect_db();
+
+    my $mr = MissingRoles->new($fm->[0], undef, $helper, "$FIG_Config::data/$contigset_id",
+            user => 'rastuser25@patricbrc.org', password => 'rastPASSWORD');
+    # Process the contigs against the kmers.
+    my $roles = $mr->Process("$FIG_Config::global/kmer_db.json");
+    my @returnRoles;
+    for my $role (@$roles) {
+        push @returnRoles, { role_id => $role->[0], role_description => $role->[1],
+            genome_hits => $role->[2], blast_score => $role->[3], perc_identity => $role->[4],
+            hit_location => $role->[5] };
+    }
+    $return = { contigset_id => $contigset_id, roles => \@returnRoles };
     #END missing_roles
     my @_bad_returns;
     (ref($return) eq 'HASH') or push(@_bad_returns, "Invalid type for return variable \"return\" (value was \"$return\")");
