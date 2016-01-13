@@ -149,8 +149,9 @@ sub missing_roles
     my $fm=$wshandle->get_objects([{workspace=>$workspace_name,name=>$contigset_id}]);
     my $helper = STKServices->new();
     $helper->connect_db();
-
-    my $mr = MissingRoles->new($fm->[0], undef, $helper, "$FIG_Config::data/$contigset_id",
+    my $workDir = "$FIG_Config::data/$contigset_id";
+    print "Working directory is $workDir.\n";
+    my $mr = MissingRoles->new($fm->[0], undef, $helper, $workDir,
             user => 'rastuser25@patricbrc.org', password => 'rastPASSWORD');
     # Process the contigs against the kmers.
     my $roles = $mr->Process("$FIG_Config::global/kmer_db.json");
