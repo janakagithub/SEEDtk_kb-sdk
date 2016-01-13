@@ -21,7 +21,7 @@ use Bio::KBase::AuthToken;
 use Bio::KBase::workspace::Client;
 use Config::IniFiles;
 use Data::Dumper;
-use SEEDtk::FIG_Config;
+use FIG_Config;
 no warnings qw(once);
 #END_HEADER
 
