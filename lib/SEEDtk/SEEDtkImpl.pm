@@ -149,7 +149,7 @@ sub missing_roles
     my $wshandle=Bio::KBase::workspace::Client->new($self->{'workspace-url'},token=>$token);
     my $fm=$wshandle->get_objects([{workspace=>$workspace_name,name=>$contigset_id}]);
     my $contigset = $fm->[0];
-    for my $key (sort keys %$contigset) {
+    for my $key (sort keys %{$contigset->{data}}) {
         print "contigset key = $key\n";
     }
     die "Failing.";
