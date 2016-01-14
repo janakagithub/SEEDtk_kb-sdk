@@ -151,6 +151,12 @@ sub missing_roles
     $helper->connect_db();
     my $workDir = "$FIG_Config::data/$contigset_id";
     print "Working directory is $workDir.\n";
+    if (! -d $workDir) {
+        File::Copy::Recursive::pathmk($workDir);
+        if (! -d $workDir) {
+            die "Working directory not created.";
+        }
+    }
     my $mr = MissingRoles->new($fm->[0], undef, $helper, $workDir,
             user => 'rastuser25@patricbrc.org', password => 'rastPASSWORD');
     # Process the contigs against the kmers.
