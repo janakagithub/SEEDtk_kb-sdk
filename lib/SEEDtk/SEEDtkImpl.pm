@@ -158,7 +158,7 @@ sub missing_roles
             die "Working directory not created.";
         }
     }
-    my $mr = MissingRoles->new($fm->[0], undef, $helper, $workDir,
+    my $mr = MissingRoles->new($fm->[0], undef, $helper, $workDir, 'warn' => 1,
             user => 'rastuser25@patricbrc.org', password => 'rastPASSWORD');
     # Process the contigs against the kmers.
     my $roles = $mr->Process("$FIG_Config::global/kmer_db.json");
