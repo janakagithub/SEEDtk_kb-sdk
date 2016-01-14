@@ -159,7 +159,7 @@ sub missing_roles
         }
     }
     my $mr = MissingRoles->new($fm->[0], undef, $helper, $workDir, 'warn' => 1,
-            user => 'rastuser25@patricbrc.org', password => 'rastPASSWORD');
+            user => 'rastuser25', password => 'rastPASSWORD');
     # Process the contigs against the kmers.
     my $roles = $mr->Process("$FIG_Config::global/kmer_db.json");
     my @returnRoles;
