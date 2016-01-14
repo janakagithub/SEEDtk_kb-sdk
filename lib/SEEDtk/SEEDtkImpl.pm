@@ -24,6 +24,7 @@ use Data::Dumper;
 use FIG_Config;
 use STKServices;
 use MissingRoles;
+use File::Copy::Recursive;
 no warnings qw(once);
 #END_HEADER
 
