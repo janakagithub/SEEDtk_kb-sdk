@@ -150,7 +150,9 @@ sub missing_roles
     my $fm=$wshandle->get_objects([{workspace=>$workspace_name,name=>$contigset_id}]);
     my $contigset = $fm->[0];
     for my $key (sort keys %{$contigset->{data}}) {
-        print "contigset key = $key\n";
+        if ($key ne 'contigs') {
+            print "Contigset key = $key => $contigset->{data}{$key}\n";
+        }
     }
     die "Failing.";
     my $helper = STKServices->new();
