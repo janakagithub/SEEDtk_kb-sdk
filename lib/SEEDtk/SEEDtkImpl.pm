@@ -149,22 +149,10 @@ sub missing_roles
     my $wshandle=Bio::KBase::workspace::Client->new($self->{'workspace-url'},token=>$token);
     my $fm=$wshandle->get_objects([{workspace=>$workspace_name,name=>$contigset_id}]);
     my $contigset = $fm->[0];
-    for my $key (sort keys %{$contigset->{data}}) {
-        if ($key ne 'contigs') {
-            print "Contigset key = $key => $contigset->{data}{$key}\n";
-        }
-    }
-    die "Failing.";
     my $helper = STKServices->new();
     $helper->connect_db();
     my $workDir = "$FIG_Config::data/$contigset_id";
     print "Working directory is $workDir.\n";
-    if (! -d $workDir) {
-        File::Copy::Recursive::pathmk($workDir);
-        if (! -d $workDir) {
-            die "Working directory not created.";
-        }
-    }
     my $mr = MissingRoles->new($contigset, undef, $helper, $workDir, 'warn' => 1,
             user => 'rastuser25', password => 'rastPASSWORD');
     # Process the contigs against the kmers.
