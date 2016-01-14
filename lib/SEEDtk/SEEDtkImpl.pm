@@ -148,6 +148,11 @@ sub missing_roles
     my $token=$ctx->token;
     my $wshandle=Bio::KBase::workspace::Client->new($self->{'workspace-url'},token=>$token);
     my $fm=$wshandle->get_objects([{workspace=>$workspace_name,name=>$contigset_id}]);
+    my $contigset = $fm->[0];
+    for my $key (sort keys %$contigset) {
+        print "contigset key = $key\n";
+    }
+    die "Failing.";
     my $helper = STKServices->new();
     $helper->connect_db();
     my $workDir = "$FIG_Config::data/$contigset_id";
@@ -158,7 +163,7 @@ sub missing_roles
             die "Working directory not created.";
         }
     }
-    my $mr = MissingRoles->new($fm->[0], undef, $helper, $workDir, 'warn' => 1,
+    my $mr = MissingRoles->new($contigset, undef, $helper, $workDir, 'warn' => 1,
             user => 'rastuser25', password => 'rastPASSWORD');
     # Process the contigs against the kmers.
     my $roles = $mr->Process("$FIG_Config::global/kmer_db.json");
