@@ -166,6 +166,7 @@ sub missing_roles
             hit_location => $role->[5] };
     }
     # Read the found roles.
+    print "Collecting found roles.\n";
     my @foundRoles;
     open(my $ih, "<$workDir/genome.roles.tbl") || die "Could not open genome.roles.tbl: $!";
     while (! eof $ih) {
@@ -175,6 +176,7 @@ sub missing_roles
         push @foundRoles, {role_id => $role_id, role_description => $role_description};
     }
     # Read the close genomes.
+    print "Collecting close genomes.\n";
     my @genomes;
     open(my $gh, "<$workDir/close.tbl") || die "Cound not open close.tbl: $!";
     while (! eof $gh) {
