@@ -180,7 +180,7 @@ sub missing_roles
     my @genomes;
     open(my $gh, "<$workDir/close.tbl") || die "Cound not open close.tbl: $!";
     while (! eof $gh) {
-        my $line = <$ih>;
+        my $line = <$gh>;
         chomp $line;
         my ($id, $hit_count, $name) = split /\t/, $line;
         push @genomes, {id => $id, hit_count => $hit_count, name => $name};
