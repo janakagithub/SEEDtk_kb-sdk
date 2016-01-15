@@ -154,16 +154,37 @@ sub missing_roles
     my $workDir = "$FIG_Config::data/$contigset_id";
     print "Working directory is $workDir.\n";
     my $mr = MissingRoles->new($contigset, undef, $helper, $workDir, 'warn' => 1,
-            user => 'rastuser25', password => 'rastPASSWORD');
+            user => 'rastuser25', password => 'rastPASSWORD', genomeID => $genome_id,
+            genomeName => $genome_name);
     # Process the contigs against the kmers.
     my $roles = $mr->Process("$FIG_Config::global/kmer_db.json");
+    # Output the missing roles.
     my @returnRoles;
     for my $role (@$roles) {
         push @returnRoles, { role_id => $role->[0], role_description => $role->[1],
             genome_hits => $role->[2], blast_score => $role->[3], perc_identity => $role->[4],
             hit_location => $role->[5] };
     }
-    $return = { contigset_id => $contigset_id, roles => \@returnRoles };
+    # Read the found roles.
+    my @foundRoles;
+    open(my $ih, "<$workDir/genome.roles.tbl") || die "Could not open genome.roles.tbl: $!";
+    while (! eof $ih) {
+        my $line = <$ih>;
+        chomp $line;
+        my ($role_id, $role_description) = split /\t/, $line;
+        push @foundRoles, {role_id => $role_id, role_description => $role_description};
+    }
+    # Read the close genomes.
+    my @genomes;
+    open(my $gh, "<$workDir/close.tbl") || die "Cound not open close.tbl: $!";
+    while (! eof $gh) {
+        my $line = <$ih>;
+        chomp $line;
+        my ($id, $hit_count, $name) = split /\t/, $line;
+        push @genomes, {id => $id, hit_count => $hit_count, name => $name};
+    }
+    $return = { contigset_id => $contigset_id, missing_roles => \@returnRoles,
+            close_genomes => \@genomes, found_roles => \@foundRoles };
     #END missing_roles
     my @_bad_returns;
     (ref($return) eq 'HASH') or push(@_bad_returns, "Invalid type for return variable \"return\" (value was \"$return\")");

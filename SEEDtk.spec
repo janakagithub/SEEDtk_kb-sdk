@@ -9,6 +9,9 @@ module SEEDtk {
     */
     typedef string contigset_id;
 
+    typedef string genome_id;
+    typedef string genome_name;
+
     /*
         A string representing a workspace name.
     */
@@ -17,7 +20,7 @@ module SEEDtk {
 
     /* description of a role missing in the contigs */
 
-	typedef structure {
+    typedef structure {
         string role_id;
         string role_description;
         int genome_hits;
@@ -26,13 +29,26 @@ module SEEDtk {
         string hit_location;
     } MissingRoleItem;
 
+    /* description of a role found in the contigs */
     typedef structure {
-        list<MissingRoleItem> roles;
+        string role_id;
+        string role_description;
+    } FoundRoleItem;
+
+    /* description of a close genome */
+    typedef structure {
+        genome_id id;
+        int hit_count;
+        genome_name name;
+    } CloseGenomeItem;
+
+    typedef structure {
+        list<MissingRoleItem> missing_roles;
         contigset_id contigset_id;
+        list<CloseGenomeItem> close_genomes;
+        list<FoundRoleItem> found_roles;
     } MissingRoleData;
 
-    typedef string genome_id;
-    typedef string genome_name;
 
     /*
         find missing roles in a set of contigs
