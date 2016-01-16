@@ -1,4 +1,5 @@
 #!/bin/bash
+source SEEDtk/user-env.sh
 cd SEEDtk/Data
 echo Downloading load tar file.
 curl -sO "ftp://ftp.kbase.us/SEEDtk/reprepo.tar.gz"
