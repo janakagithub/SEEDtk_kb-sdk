@@ -4,7 +4,7 @@
 
 source SEEDtk/user-env.sh
 cd SEEDtk/Data
-if [ ! -e reprepo.tar.gz ] || [ $1 == "force" ]; then
+if [ ! -e reprepo.tar.gz ] || [ "$1" == "force" ]; then
     echo Downloading load tar file.
     curl -sO "ftp://ftp.kbase.us/SEEDtk/reprepo.tar.gz"
 fi
