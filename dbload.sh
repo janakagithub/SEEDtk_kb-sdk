@@ -12,5 +12,6 @@ ShrubLoad --clear --exclusive --store --tar=reprepo.tar.gz
 echo Cleaning up.
 rm reprepo.tar.gz
 rm -rf Inputs/GenomeData/*
-rm -rf Inputs/SubsystemData/*
+rm -rf Inputs/SubSystemData/*
+rm -rf Inputs/ModelSEEDDatabase
 rm -rf LoadFiles/*
