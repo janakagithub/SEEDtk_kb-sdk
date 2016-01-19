@@ -27,6 +27,7 @@ module SEEDtk {
         float blast_score;
         float perc_identity;
         string hit_location;
+        string protein_sequence;
     } MissingRoleItem;
 
     /* description of a role found in the contigs */
