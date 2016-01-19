@@ -25,6 +25,10 @@ eval {
     my $ws = 'janakakbase:1450461455608';
     my $obj_name = "691161.5.contigs";
     my $ret = $impl->missing_roles($ws, $obj_name, '691161.5', 'Peptoclostridium difficile');
+    my $foundRoles = $ret->{found_roles};
+    for my $foundRole (@$foundRoles) {
+        print "$foundRole->{role_id} ($foundRole->{genome_hits} close hits) found at $foundRole->{hit_location}.\n";
+    }
 };
 my $err = undef;
 if ($@) {
