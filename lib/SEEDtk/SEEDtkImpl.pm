@@ -158,12 +158,17 @@ sub missing_roles
             genomeName => $genome_name);
     # Process the contigs against the kmers.
     my $roles = $mr->Process("$FIG_Config::global/kmer_db.json");
+    # Ask for the reactions.
+    my $rolesToReactions = $helper->role_to_reactions([map { $_->[0] } @$roles]);
     # Output the missing roles.
     my @returnRoles;
     for my $role (@$roles) {
-        push @returnRoles, { role_id => $role->[0], role_description => $role->[1],
+        # Get the role ID.
+        my $roleID = $role->[0];
+        # Create the output object.
+        push @returnRoles, { role_id => $roleID, role_description => $role->[1],
             genome_hits => $role->[2], blast_score => $role->[3], perc_identity => $role->[4],
-            hit_location => $role->[5], protein_sequence => $role->[6], reactions => [] };
+            hit_location => $role->[5], protein_sequence => $role->[6], reactions => $rolesToReactions->{$roleID} };
     }
     # Read the found roles.
     print "Collecting found roles.\n";
