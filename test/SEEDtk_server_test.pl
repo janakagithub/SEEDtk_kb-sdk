@@ -32,7 +32,6 @@ eval {
         for my $react (@$reactList) {
             print "  $react->{reaction_id}. $react->{reaction_name}\n";
         }
-        print "$mRole->{protein_sequence}\n";
     }
 };
 my $err = undef;
