@@ -165,10 +165,13 @@ sub missing_roles
     for my $role (@$roles) {
         # Get the role ID.
         my $roleID = $role->[0];
+        # Get the reactions.
+        my $reactionL = $rolesToReactions->{$roleID};
+        my @reactions = map { { reaction_id => $_->[0], reaction_name => $_->[1] } } @$reactionL;
         # Create the output object.
         push @returnRoles, { role_id => $roleID, role_description => $role->[1],
             genome_hits => $role->[2], blast_score => $role->[3], perc_identity => $role->[4],
-            hit_location => $role->[5], protein_sequence => $role->[6], reactions => $rolesToReactions->{$roleID} };
+            hit_location => $role->[5], protein_sequence => $role->[6], reactions => \@reactions };
     }
     # Read the found roles.
     print "Collecting found roles.\n";
