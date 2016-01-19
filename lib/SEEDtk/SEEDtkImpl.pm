@@ -163,7 +163,7 @@ sub missing_roles
     for my $role (@$roles) {
         push @returnRoles, { role_id => $role->[0], role_description => $role->[1],
             genome_hits => $role->[2], blast_score => $role->[3], perc_identity => $role->[4],
-            hit_location => $role->[5], protein_sequence => $role->[6] };
+            hit_location => $role->[5], protein_sequence => $role->[6], reactions => [] };
     }
     # Read the found roles.
     print "Collecting found roles.\n";

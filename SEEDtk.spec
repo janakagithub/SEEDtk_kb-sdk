@@ -21,6 +21,11 @@ module SEEDtk {
     /* description of a role missing in the contigs */
 
     typedef structure {
+        string reaction_id;
+        string reaction_name;
+    } ReactionItem;
+
+    typedef structure {
         string role_id;
         string role_description;
         int genome_hits;
@@ -28,6 +33,7 @@ module SEEDtk {
         float perc_identity;
         string hit_location;
         string protein_sequence;
+        list<ReactionItem> reactions;
     } MissingRoleItem;
 
     /* description of a role found in the contigs */
