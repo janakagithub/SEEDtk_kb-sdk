@@ -28,6 +28,7 @@ eval {
     my $mRoles = $ret->{missing_roles};
     for my $mRole (@$mRoles) {
         print "$mRole->{role_id} ($mRole->{genome_hits} close hits) found at $mRole->{hit_location}.\n";
+        print "$mRole->{protein_sequence}\n";
     }
 };
 my $err = undef;
