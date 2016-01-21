@@ -14,4 +14,5 @@ rm reprepo.tar.gz
 rm -rf Inputs/GenomeData/*
 rm -rf Inputs/SubSystemData/*
 rm -rf Inputs/ModelSEEDDatabase
+rm -rf Inputs/Other/*
 rm -rf LoadFiles/*
