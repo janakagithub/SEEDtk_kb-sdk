@@ -41,7 +41,7 @@
             "output_mapping": [
                 {
                     "service_method_output_path": [0, "missingRoles"],
-                    "target_property": "genome_name"
+                    "target_property": "genome_id"
                 },
                 {
                     "narrative_system_variable": "workspace",
