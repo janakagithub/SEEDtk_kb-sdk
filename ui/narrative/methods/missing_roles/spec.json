@@ -42,7 +42,12 @@
                 {
                     "narrative_system_variable": "workspace",
                     "target_property": "ws"
+                },
+                {
+                    "input_parameter": "missingRoles",
+                    "target_property": "obj"
                 }
+
             ]
         }
     },
