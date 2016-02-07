@@ -31,11 +31,11 @@
             "input_mapping": [
                 {
                     "narrative_system_variable": "workspace",
-                    "target_property": "0"
+                    "target_argument_position": "0"
                 },
                 {
                     "input_parameter": "genome_id",
-                    "target_property": "1"
+                    "target_argument_position": "1"
                 }
             ],
             "output_mapping": [
