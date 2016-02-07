@@ -40,8 +40,8 @@
             ],
             "output_mapping": [
                 {
-                    "service_method_output_path": [0, "MissingRoleData"],
-                    "target_property": "meta"
+                    "service_method_output_path": [0, "missingRoles"],
+                    "target_property": "missingRoles"
                 },
                 {
                     "narrative_system_variable": "workspace",
