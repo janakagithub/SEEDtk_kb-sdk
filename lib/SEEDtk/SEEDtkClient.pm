@@ -112,7 +112,7 @@ sub new
 
 =head2 missing_roles
 
-  $return = $obj->missing_roles($workspace_name, $genome_id)
+  $return = $obj->missing_roles($workspace_name, $genome_id, $outputObject)
 
 =over 4
 
@@ -123,9 +123,11 @@ sub new
 <pre>
 $workspace_name is a SEEDtk.workspace_name
 $genome_id is a SEEDtk.genome_id
+$outputObject is a SEEDtk.outputObject
 $return is a SEEDtk.MissingRoleData
 workspace_name is a string
 genome_id is a string
+outputObject is a string
 MissingRoleData is a reference to a hash where the following keys are defined:
 	contigset_id has a value which is a SEEDtk.contigset_id
 	missing_roles has a value which is a reference to a list where each element is a SEEDtk.MissingRoleItem
@@ -161,9 +163,11 @@ FoundRoleItem is a reference to a hash where the following keys are defined:
 
 $workspace_name is a SEEDtk.workspace_name
 $genome_id is a SEEDtk.genome_id
+$outputObject is a SEEDtk.outputObject
 $return is a SEEDtk.MissingRoleData
 workspace_name is a string
 genome_id is a string
+outputObject is a string
 MissingRoleData is a reference to a hash where the following keys are defined:
 	contigset_id has a value which is a SEEDtk.contigset_id
 	missing_roles has a value which is a reference to a list where each element is a SEEDtk.MissingRoleItem
@@ -208,17 +212,18 @@ find missing roles in a set of contigs
 
 # Authentication: required
 
-    if ((my $n = @args) != 2)
+    if ((my $n = @args) != 3)
     {
 	Bio::KBase::Exceptions::ArgumentValidationError->throw(error =>
-							       "Invalid argument count for function missing_roles (received $n, expecting 2)");
+							       "Invalid argument count for function missing_roles (received $n, expecting 3)");
     }
     {
-	my($workspace_name, $genome_id) = @args;
+	my($workspace_name, $genome_id, $outputObject) = @args;
 
 	my @_bad_arguments;
         (!ref($workspace_name)) or push(@_bad_arguments, "Invalid type for argument 1 \"workspace_name\" (value was \"$workspace_name\")");
         (!ref($genome_id)) or push(@_bad_arguments, "Invalid type for argument 2 \"genome_id\" (value was \"$genome_id\")");
+        (!ref($outputObject)) or push(@_bad_arguments, "Invalid type for argument 3 \"outputObject\" (value was \"$outputObject\")");
         if (@_bad_arguments) {
 	    my $msg = "Invalid arguments passed to missing_roles:\n" . join("", map { "\t$_\n" } @_bad_arguments);
 	    Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
@@ -399,6 +404,37 @@ a string
 =item Description
 
 A string representing a workspace name.
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a string
+</pre>
+
+=end html
+
+=begin text
+
+a string
+
+=end text
+
+=back
+
+
+
+=head2 outputObject
+
+=over 4
+
+
+
+=item Description
+
+A string representing a output object name.
 
 
 =item Definition

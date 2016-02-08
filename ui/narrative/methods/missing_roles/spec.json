@@ -21,7 +21,19 @@
             "text_options": {
                 "valid_ws_types": [ "KBaseGenomes.Genome" ]
             }
-        }
+        },
+        {
+            "id" : "outputObject",
+            "optional" : false,
+            "advanced" : false,
+            "allow_multiple" : false,
+            "default_values" : [ "" ],
+            "field_type" : "text",
+            "text_options" : {
+            "valid_ws_types" : [ "KBaseFBA.MissingRoleData" ],
+            "is_output_name":true
+            }
+         }
     ],
     "behavior": {
         "service-mapping": {
@@ -36,6 +48,10 @@
                 {
                     "input_parameter": "genome_id",
                     "target_argument_position": "1"
+                },
+                {
+                    "input_parameter": "outputObject",
+                    "target_argument_position": "2"
                 }
             ],
             "output_mapping": [

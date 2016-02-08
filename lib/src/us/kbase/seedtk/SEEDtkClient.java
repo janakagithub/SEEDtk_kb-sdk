@@ -146,14 +146,16 @@ public class SEEDtkClient {
      * </pre>
      * @param   arg1   instance of original type "workspace_name" (A string representing a workspace name.)
      * @param   arg2   instance of original type "genome_id"
+     * @param   arg3   instance of original type "outputObject" (A string representing a output object name.)
      * @return   instance of type {@link us.kbase.seedtk.MissingRoleData MissingRoleData}
      * @throws IOException if an IO exception occurs
      * @throws JsonClientException if a JSON RPC exception occurs
      */
-    public MissingRoleData missingRoles(String arg1, String arg2, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
+    public MissingRoleData missingRoles(String arg1, String arg2, String arg3, RpcContext... jsonRpcContext) throws IOException, JsonClientException {
         List<Object> args = new ArrayList<Object>();
         args.add(arg1);
         args.add(arg2);
+        args.add(arg3);
         TypeReference<List<MissingRoleData>> retType = new TypeReference<List<MissingRoleData>>() {};
         List<MissingRoleData> res = caller.jsonrpcCall("SEEDtk.missing_roles", args, retType, true, true, jsonRpcContext);
         return res.get(0);

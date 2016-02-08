@@ -32,5 +32,14 @@ parameters :
             Genome Name
         short-hint : |
             The Genome of interest for computing possible missing annoation
+
+    output_expAnalysis :
+        ui-name : |
+            Output name
+        short-hint : |
+            Output name  of data object
+        long-hint  : |
+            Analysis data will be stored in this object.
+
 description : |
     <p>This method compute possible missing roles based on closely related well annoated set of reference genomes, These missing roles could be used improve metabolic models.</p>

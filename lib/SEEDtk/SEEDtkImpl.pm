@@ -2,7 +2,7 @@ package SEEDtk::SEEDtkImpl;
 use strict;
 use Bio::KBase::Exceptions;
 # Use Semantic Versioning (2.0.0-rc.1)
-# http://semver.org 
+# http://semver.org
 our $VERSION = "0.1.0";
 
 =head1 NAME
@@ -58,7 +58,7 @@ sub new
 
 =head2 missing_roles
 
-  $return = $obj->missing_roles($workspace_name, $genome_id)
+  $return = $obj->missing_roles($workspace_name, $genome_id, $outputObject)
 
 =over 4
 
@@ -69,9 +69,11 @@ sub new
 <pre>
 $workspace_name is a SEEDtk.workspace_name
 $genome_id is a SEEDtk.genome_id
+$outputObject is a SEEDtk.outputObject
 $return is a SEEDtk.MissingRoleData
 workspace_name is a string
 genome_id is a string
+outputObject is a string
 MissingRoleData is a reference to a hash where the following keys are defined:
 	contigset_id has a value which is a SEEDtk.contigset_id
 	missing_roles has a value which is a reference to a list where each element is a SEEDtk.MissingRoleItem
@@ -107,9 +109,11 @@ FoundRoleItem is a reference to a hash where the following keys are defined:
 
 $workspace_name is a SEEDtk.workspace_name
 $genome_id is a SEEDtk.genome_id
+$outputObject is a SEEDtk.outputObject
 $return is a SEEDtk.MissingRoleData
 workspace_name is a string
 genome_id is a string
+outputObject is a string
 MissingRoleData is a reference to a hash where the following keys are defined:
 	contigset_id has a value which is a SEEDtk.contigset_id
 	missing_roles has a value which is a reference to a list where each element is a SEEDtk.MissingRoleItem
@@ -153,11 +157,12 @@ find missing roles in a set of contigs
 sub missing_roles
 {
     my $self = shift;
-    my($workspace_name, $genome_id) = @_;
+    my($workspace_name, $genome_id, $outputObject) = @_;
 
     my @_bad_arguments;
     (!ref($workspace_name)) or push(@_bad_arguments, "Invalid type for argument \"workspace_name\" (value was \"$workspace_name\")");
     (!ref($genome_id)) or push(@_bad_arguments, "Invalid type for argument \"genome_id\" (value was \"$genome_id\")");
+    (!ref($outputObject)) or push(@_bad_arguments, "Invalid type for argument \"outputObject\" (value was \"$outputObject\")");
     if (@_bad_arguments) {
 	my $msg = "Invalid arguments passed to missing_roles:\n" . join("", map { "\t$_\n" } @_bad_arguments);
 	Bio::KBase::Exceptions::ArgumentValidationError->throw(error => $msg,
@@ -224,13 +229,26 @@ sub missing_roles
     my $missingRoles = { contigset_id => $contigset_id, missing_roles => \@returnRoles,
             close_genomes => \@genomes, found_roles => \@foundRoles };
 
+    my $saveObjectParams;
+    $saveObjectParams->{workspace}=$workspace_name;
+    $saveObjectParams->{objects}->[0]->{type} = "KBaseFBA.FBAPathwayAnalysis";
+    $saveObjectParams->{objects}->[0]->{data} = $missingRoles;
+    $saveObjectParams->{objects}->[0]->{name} = $outputObject;
+
+    my $meta = $wshandle->save_objects($saveObjectParams);
+
+    $meta->[0] = $contigset_id;
+    $meta->[0] = $genome_name;
+    $meta->[0] = \@genomes;
+=head
     my %meta = (
         contigset_id => $contigset_id,
         genome_name  => $genome_name,
         close_genomes => \@genomes
     );
+=cut
 
-    $return = { 'missingRoles' => %meta };
+    $return = { 'missingRoles' => $meta };
 
 
     #END missing_roles
@@ -247,7 +265,7 @@ sub missing_roles
 
 
 
-=head2 version 
+=head2 version
 
   $return = $obj->version()
 
@@ -377,6 +395,37 @@ a string
 =item Description
 
 A string representing a workspace name.
+
+
+=item Definition
+
+=begin html
+
+<pre>
+a string
+</pre>
+
+=end html
+
+=begin text
+
+a string
+
+=end text
+
+=back
+
+
+
+=head2 outputObject
+
+=over 4
+
+
+
+=item Description
+
+A string representing a output object name.
 
 
 =item Definition
