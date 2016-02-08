@@ -224,6 +224,7 @@ sub missing_roles
         my $line = <$gh>;
         chomp $line;
         my ($id, $hit_count, $name) = split /\t/, $line;
+        $hit_count = $hit_count+0;
         push @genomes, {id => $id, hit_count => $hit_count, name => $name};
     }
     my $missingRoles = { contigset_id => $contigset_id, missing_roles => \@returnRoles,
