@@ -8,7 +8,7 @@
     "categories": ["active"],
     "widgets": {
         "input": null,
-        "output": null
+        "output": kbaseTabTable
     },
     "parameters": [
         {
@@ -55,13 +55,19 @@
                 }
             ],
             "output_mapping": [
-
                 {
-                    "narrative_system_variable": "workspace",
-                    "target_property": "ws"
+                  "constant_value": "KBaseFBA.MissingRoleData",
+                  "target_property": "type"
+                },
+                {
+                  "input_parameter": "output_model",
+                  "target_property": "obj"
+                },
+                {
+                  "narrative_system_variable": "workspace",
+                  "target_property": "ws"
                 }
-
-            ]
+              ]
         }
     },
     "job_id_output_field": "docker"
