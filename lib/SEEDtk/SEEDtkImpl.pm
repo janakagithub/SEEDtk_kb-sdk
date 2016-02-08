@@ -231,15 +231,15 @@ sub missing_roles
 
     my $saveObjectParams;
     $saveObjectParams->{workspace}=$workspace_name;
-    $saveObjectParams->{objects}->[0]->{type} = "KBaseFBA.FBAPathwayAnalysis";
+    $saveObjectParams->{objects}->[0]->{type} = "KBaseFBA.MissingRoleData";
     $saveObjectParams->{objects}->[0]->{data} = $missingRoles;
     $saveObjectParams->{objects}->[0]->{name} = $outputObject;
 
     my $meta = $wshandle->save_objects($saveObjectParams);
 
     $meta->[0] = $contigset_id;
-    $meta->[0] = $genome_name;
-    $meta->[0] = \@genomes;
+    $meta->[1] = $genome_name;
+    $meta->[2] = \@genomes;
 =head
     my %meta = (
         contigset_id => $contigset_id,
