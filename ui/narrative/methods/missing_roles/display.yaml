@@ -33,7 +33,7 @@ parameters :
         short-hint : |
             The Genome of interest for computing possible missing annoation
 
-    output_expAnalysis :
+    outputObject :
         ui-name : |
             Output name
         short-hint : |
