@@ -6,7 +6,7 @@ tooltip: |
     Compute missing annoation for a given genome based on closely related reference genomes
 screenshots: []
 
-icon: kb-purple.png
+icon: seed-purple.png
 
 #
 # define a set of similar methods that might be useful to the user
