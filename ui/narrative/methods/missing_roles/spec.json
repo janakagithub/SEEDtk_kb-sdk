@@ -5,7 +5,7 @@
     ],
     "contact": "janakaed@anl.gov",
     "visible": true,
-    "categories": ["active"],
+    "categories": ["active","comparative_genomics","metabolic_modeling"],
     "widgets": {
         "input": null,
         "output": "kbaseTabTable"
